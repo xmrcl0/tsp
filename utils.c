@@ -30,7 +30,6 @@ is_integer(char *number)
 }
 
 
-
 /*
  * Verify if a string is a valid number.
  *
@@ -59,12 +58,24 @@ is_positive_number(char *number)
 
 
 void
-array_copy(int src[], int dst[], size_t n)
+array_copy(int **src, int **dst, size_t n)
 {
     int i; 
 
-    for(i = 0; i < n; i++)
-    {
-        dst[i] = src[i];
-    } 
+    (*dst) = (int *) malloc((n + 1) * sizeof(int));
+
+    for(i = 0; i <= n; i++)
+        (*dst)[i] = (*src)[i];
+}
+
+
+long double
+factorial(int n)
+{
+    int i;
+    long double f = 1;
+    
+    for(i = n; i > 1; i--)
+        f = f * i; 
+    return f;
 }

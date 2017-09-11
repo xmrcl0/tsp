@@ -6,7 +6,7 @@
  *
  * @author: Marcelo Pinto
  * @email: mpinto@usp.br
- * @version: 0.5
+ * @version: 0.2
  * @date: 09/09/2017
 */
 
@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <float.h>
+#include <stddef.h>
 #include "randperm.h"
 #include "print.h"
 #include "utils.h"
@@ -23,13 +24,20 @@
  * Create euclidian distance matrix
  */
 void
-distance_matrix(float v[][2], float d[][4])
+distance_matrix(float ***v, float ***d, int n)
 {
-    int i, j;
+    int i, j, nrows, ncols;
 
-    for (i = 0; i < 4; i++)
-        for (j = 0; j < 4; j++)
-            d[i][j] = sqrt(pow(v[i][0] - v[j][0], 2) + pow(v[i][1] - v[j][1], 2));
+    ncols = n;
+    nrows = n;
+
+    *d =  (float **)malloc(nrows * sizeof(float *));
+    for (i = 0; i < nrows; i++)
+        (*d)[i] = (float *)malloc(ncols * sizeof(float));
+
+    for (i = 0; i < n; i++)
+        for (j = 0; j < n; j++)
+            (*d)[i][j] = sqrt(pow((*v)[i][0] - (*v)[j][0], 2) + pow((*v)[i][1] - (*v)[j][1], 2));
 }
 
 
@@ -37,10 +45,14 @@ distance_matrix(float v[][2], float d[][4])
  * Create a hamiltonian cycle aka "path"
  */
 void
-create_path(int n, int v[])
+create_path(int n, int **v)
 {
-    randperm(n , v);
-    v[n] = v[0];
+    int i;
+
+    (*v) =  (int *) malloc((n + 1) * sizeof(int));
+
+    randperm(n, *v);
+    (*v)[n] = (*v)[0];
 }
 
 
@@ -48,14 +60,46 @@ create_path(int n, int v[])
  * Measure the path length
  */
 float
-measure_path(float d[][4], int p[])
+measure_path(float ***d, int n, int **p)
 {
     int i;
     float l = 0;
 
-    for (i = 0; i < 4; i++)
-        l = l + d[p[i]][p[i+1]]; 
+    for (i = 0; i < n; i++)
+        l = l + (*d)[(*p)[i]][(*p)[i+1]];
     return l;
+}
+
+
+/*
+ * Read cities coordinate file
+ */
+int
+read_file(char *file, float ***array)
+{
+    int i, j, nrows = 0, ncols = 2;
+    char c;
+    FILE *f;
+
+    f = fopen(file, "r");
+    while(!feof(f))
+    {
+        c = fgetc(f);
+        if (c == '\n')
+            nrows++;
+    }
+
+    *array =  (float **)malloc(nrows * sizeof(float *));
+    for (i = 0; i < nrows; i++)
+        (*array)[i] = (float *) malloc(ncols * sizeof(float));
+
+    f = fopen(file, "r");
+    for (i = 0; i < nrows; i++)
+        for(j = 0; j < ncols; j++)
+            if(!fscanf(f, "%f", &(*array)[i][j]))
+                break;
+    fclose(f);
+    return nrows;
 }
 
 
@@ -63,49 +107,62 @@ int
 main(int argc, char **argv)
 {
     int i, j, n;
-    float c[4][2] = {0};
-    float d[4][4] = {0};
-    int p[5] = {0}, min_p[5] = {0};
+    long double ii;
+    float **c, **d;
+    int *p, *min_p;   
     float l = 0, min_l = FLT_MAX;
     FILE *file;
 
-    // Print number of paths
-    printf("\nnumber of cities = %d\n", 4);
-    printf("possible paths = (%d - 1)! / 2 = %d\n\n", 4, 3);
-
-    // Read cities coordinate file
-    file = fopen("data/grid04_xy.txt", "r");
-    for (i = 0; i < 4; i++)
-        for(j = 0; j < 2; j++)
-            if(!fscanf(file, "%f", &c[i][j]))
-                break;
-    fclose(file);
-
-    // Print cities coordinates
-    print_cord(c);
+    //Read file
+    n = read_file(argv[3], &c);
 
     // Create a new seed
     srand(time(NULL));
 
     // Create distance matrix
-    distance_matrix(c, d);
-    print_dist(d);
+    distance_matrix(&c, &d, n);
 
-    // Simulates n trips
+    // Simulates n round trips
     printf ("Possible Paths:\n");
-    for (n = 0; n < atoi(argv[1]); n++)
+    for (ii = 0; ii < strtold(argv[1], NULL); ii++)
     {
-        create_path(4, p);
-        l = measure_path(d, p);
-        print_path(d, p, l, atoi(argv[2]));
+        create_path(n, &p);
+        l = measure_path(&d, n, &p);
+        print_path(&d, &p, n, l, atoi(argv[2]));
+
         if (l < min_l)
+        {
             min_l = l;
-            array_copy(p, min_p, 5);
+            array_copy(&p, &min_p, n);
+        }
+        free(p);
     }
 
+
+    // Print relatory 
+    //print_rel(&d, &p, &min_p, min_l, argv[2]);
+
+    // Print number of paths
+    printf("\n\n\nResults:\n");
+    printf("\nnumber of cities = %d\n", n);
+    //printf("possible paths   = (%d - 1)! / 2 = %.0Lf\n", n, factorial(n - 1) / 2);
+    printf("possible paths   = %.0Lf\n", factorial(n - 1) / 2);
+    printf("simulated paths  = %s\n", argv[1]);
+
+    // Print cities coordinates
+    print_cord(&c, n);
+
+    // Print distance matrix
+    print_dist(&d, n);
+
     // Print minimal path found
-    printf ("\nMinimal path found:\n");
-    print_path(d, min_p, min_l, atoi(argv[2]));
+    printf ("Minimal path found:\n");
+    print_path(&d, &min_p, n,  min_l, atoi(argv[2]));
+    printf("\n");
+
+    free(min_p);
+    free(c);
+    free(d);
 
     return 0;
 }
