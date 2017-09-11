@@ -12,22 +12,21 @@
 
 /** @brief Verify if a string is a valid integer.
  *
- *  @param number
- *  @return bool
+ *  @param number Number to be validated
+ *  @return Bool
  */
 int is_integer(char *number);
 
 
 /** @brief Verify if a string is a valid number.
  *
- *  @param number
- *  @return bool 
+ *  @param number Number to be validated
+ *  @return Bool 
  */
-
 int is_positive_number(char *number);
 
 
-/** @brief Copy a array.
+/** @brief Copy an array.
  *
  * @param src Source array
  * @param dst Destination array
@@ -40,7 +39,7 @@ void array_copy(int **src, int **dst, size_t n);
 /** @brief Calculates n!.
  *
  * @param n Number
- * @return long double
+ * @return long double Factorial of n
  */
 long double factorial(int n);
 
@@ -52,7 +51,7 @@ long double factorial(int n);
  * as long as this notice is preserved.  All standard disclaimers apply.
  *       
  *  @param n Array size
- *  @param perm Array elements 
+ *  @param perm Array of n elements 
  *  @return Void 
  */
 void randperm(int n, int perm[]);
