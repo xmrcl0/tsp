@@ -7,6 +7,8 @@ Traveling Salesman Problem
 O TSP, mais conhecido como o problema do **Caixeiro Viajante** é um problema
 logístico, que consiste, de maneira simplificada, visitar todas as "cidades"
 viajando a menor distância possível.
+
+
 ----
 
 Compilação
@@ -20,11 +22,12 @@ Efetuar a compilação do código-fonte:
 
 ----
 
-Uso 
+Uso
+---
 Executar com a opção help:
 
 
-        $ ./tsp -h
+        $ ./tsp -h
 
 ----
 
