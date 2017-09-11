@@ -1,56 +1,52 @@
-#include "utils.h"
-#include <regex.h>
-#include <stdlib.h>
-#include <stdio.h>
-
-/*
- * Verify if a string is a valid integer.
+/** @file utils.c
+ *  @brief Utils functions.
  *
- * @param number
- * @return bool 
-*/
+ *  @author Marcelo Pinto (xmrcl0@gmail.com)
+ *  @bug No known bugs.
+ */
+
+#include "utils.h"
+
 int
-is_integer(char *number)
+is_integer (char *number)
 {
   int r;
   regex_t regex;
   const char *pattern = "^[0-9]+$";
-  
+
   r = regcomp (&regex, pattern, REG_EXTENDED);
-  if (r) {
-    fprintf(stderr, "Could not compile regex\n");
-    exit(1);
+  if (r)
+  {
+    fprintf (stderr, "Could not compile regex\n");
+    exit (1);
   }
-  
+
   r = regexec (&regex, number, 0, NULL, 0);
-  if (!r) {
+  if (!r)
+  {
     return 1;
   }
   return 0;
 }
 
 
-/*
- * Verify if a string is a valid number.
- *
- * @param number
- * @return bool 
-*/
 int
-is_positive_number(char *number)
+is_positive_number (char *number)
 {
   int r;
   regex_t regex;
   const char *pattern = "^[0-9]+\\.?([0-9]+)?$";
 
   r = regcomp (&regex, pattern, REG_EXTENDED);
-  if (r) {
-    fprintf(stderr, "Could not compile regex\n");
-    exit(1);
+  if (r)
+  {
+    fprintf (stderr, "Could not compile regex\n");
+    exit (1);
   }
 
   r = regexec (&regex, number, 0, NULL, 0);
-  if (!r) {
+  if (!r)
+  {
     return 1;
   }
   return 0;
@@ -58,24 +54,42 @@ is_positive_number(char *number)
 
 
 void
-array_copy(int **src, int **dst, size_t n)
+array_copy (int **src, int **dst, size_t n)
 {
-    int i; 
+  int i;
 
-    (*dst) = (int *) malloc((n + 1) * sizeof(int));
+  (*dst) = (int *) malloc ((n + 1) * sizeof (int));
 
-    for(i = 0; i <= n; i++)
-        (*dst)[i] = (*src)[i];
+  for (i = 0; i <= n; i++)
+    (*dst)[i] = (*src)[i];
 }
 
 
 long double
-factorial(int n)
+factorial (int n)
 {
-    int i;
-    long double f = 1;
-    
-    for(i = n; i > 1; i--)
-        f = f * i; 
-    return f;
+  int i;
+  long double factorial = 1;
+
+  for (i = n; i > 1; i--)
+    factorial = factorial * i;
+  return factorial;
 }
+
+
+void
+randperm (int n, int perm[])
+{
+  int i, j, t;
+
+  for (i = 0; i < n; i++)
+    perm[i] = i;
+  for (i = 0; i < n; i++)
+  {
+    j = rand () % (n - i) + i;
+    t = perm[j];
+    perm[j] = perm[i];
+    perm[i] = t;
+  }
+}
+
