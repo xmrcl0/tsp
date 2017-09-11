@@ -36,4 +36,5 @@ Exemplos
 
 Efetua cinco simulações para o TSP para um arquivo com quatro cidades:
 
+
         $ tsp -n 5 -m 2 -f data/grid04_xy.txt
