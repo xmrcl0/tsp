@@ -1,4 +1,31 @@
+#include <stdlib.h>
 #include "print.h"
+#include "utils.h"
+
+
+/*
+ *  Print report
+ */
+void
+print_repo(float **c, float **d, int *min_p, int n, float min_l, char *inter, char *mode)
+{
+    // Print number of paths
+    printf("\n\n\nResults:\n");
+    printf("\nnumber of cities = %d\n", n); 
+    printf("possible paths   = %.0Lf\n", factorial(n - 1) / 2); 
+    printf("simulated paths  = %s\n", inter);
+
+    // Print cities coordinates
+    print_cord(&c, n); 
+
+    // Print distance matrix
+    print_dist(&d, n); 
+
+    // Print minimal path found
+    printf ("Minimal path found:\n");
+    print_path(&d, &min_p, n,  min_l, atoi(mode));
+    printf("\n");
+}
 
 
 /*
@@ -51,6 +78,7 @@ print_dist(float ***d, size_t n)
     }   
     printf("\n");
 }
+
 
 /*
  * Print coordinate matrix 

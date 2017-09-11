@@ -7,7 +7,7 @@
  * @author: Marcelo Pinto
  * @email: mpinto@usp.br
  * @version: 0.2
- * @date: 09/09/2017
+ * @date: 09/11/2017
 */
 
 #include <stdio.h>
@@ -102,15 +102,14 @@ read_file(char *file, float ***array)
     return nrows;
 }
 
-
 /*
  * Main routine
  */
 int
 main(int argc, char **argv)
 {
-    int i, j, n;
-    long double ii;
+    int n;
+    long double i;
     float **c, **d;
     int *p, *min_p;   
     float l = 0, min_l = FLT_MAX;
@@ -127,7 +126,7 @@ main(int argc, char **argv)
 
     // Simulates n round trips
     printf ("Possible Paths:\n");
-    for (ii = 0; ii < strtold(argv[1], NULL); ii++)
+    for (i = 0; i < strtold(argv[1], NULL); i++)
     {
         create_path(n, &p);
         l = measure_path(&d, n, &p);
@@ -142,23 +141,7 @@ main(int argc, char **argv)
     }
 
     // Print report 
-
-    // Print number of paths
-    printf("\n\n\nResults:\n");
-    printf("\nnumber of cities = %d\n", n);
-    printf("possible paths   = %.0Lf\n", factorial(n - 1) / 2);
-    printf("simulated paths  = %s\n", argv[1]);
-
-    // Print cities coordinates
-    print_cord(&c, n);
-
-    // Print distance matrix
-    print_dist(&d, n);
-
-    // Print minimal path found
-    printf ("Minimal path found:\n");
-    print_path(&d, &min_p, n,  min_l, atoi(argv[2]));
-    printf("\n");
+    print_repo(c, d, min_p, n, min_l, argv[1], argv[2]);
 
     free(min_p);
     free(c);
