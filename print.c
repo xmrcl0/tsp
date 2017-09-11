@@ -1,32 +1,5 @@
 #include "print.h"
 
-/*
- *  Print relatory
- *
-void
-print_rel(float ***d, int **p, int **min_p, int min_l, int mode)
-{
-    // Print result
-
-    // Print number of paths
-    printf("\n\n\nResults:\n");
-    printf("\nnumber of cities = %d\n", n); 
-    printf("possible paths   = %.0Lf\n", factorial(n - 1) / 2); 
-    printf("simulated paths  = %s\n", argv[1]);
-
-    // Print cities coordinates
-    print_cord(&c, n); 
-
-    // Print distance matrix
-    print_dist(&d, n); 
-
-    // Print minimal path found
-    printf ("Minimal path found:\n");
-    print_path(&d, &min_p, n,  min_l, atoi(mode));
-    printf("\n");
-}
- */
-
 
 /*
  * Print a path

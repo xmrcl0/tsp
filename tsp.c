@@ -103,6 +103,9 @@ read_file(char *file, float ***array)
 }
 
 
+/*
+ * Main routine
+ */
 int
 main(int argc, char **argv)
 {
@@ -138,14 +141,11 @@ main(int argc, char **argv)
         free(p);
     }
 
-
-    // Print relatory 
-    //print_rel(&d, &p, &min_p, min_l, argv[2]);
+    // Print report 
 
     // Print number of paths
     printf("\n\n\nResults:\n");
     printf("\nnumber of cities = %d\n", n);
-    //printf("possible paths   = (%d - 1)! / 2 = %.0Lf\n", n, factorial(n - 1) / 2);
     printf("possible paths   = %.0Lf\n", factorial(n - 1) / 2);
     printf("simulated paths  = %s\n", argv[1]);
 
