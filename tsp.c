@@ -8,11 +8,9 @@
  *  @bug No known bugs
  */
 
-
 #include "tsp.h"
 #include "print.h"
 #include "utils.h"
-
 
 void
 help (void)
@@ -76,22 +74,21 @@ read_file (char *file, float ***array)
 {
   int i, j, nrows = 0, ncols = 2;
   char c;
+  char *line = NULL;
+  size_t len=0;
   FILE *fp;
 
-  // Get the number of cities from coordinates file 
   fp = fopen (file, "r");
   if (fp == NULL)
-  {
-    perror ("Error");
-    exit (EXIT_FAILURE);
-  }
+    return -2;
 
-  while (!feof (fp))
-  {
-    c = fgetc (fp);
-    if (c == '\n')
-      nrows++;
+  while ((getline(&line, &len, fp) != -1))
+  { 
+    if (!is_coordinate (line))
+      return -1;
+    nrows++;
   }
+  free(line);
 
   // Allocate memory for coordinates matrix 
   *array = (float **) malloc (nrows * sizeof (float *));
@@ -105,6 +102,7 @@ read_file (char *file, float ***array)
       if (!fscanf (fp, "%f", &(*array)[i][j]))
 	break;
   fclose (fp);
+
   return nrows;
 }
 
@@ -157,6 +155,17 @@ main (int argc, char **argv)
     case 'f':
       fflag = 1;
       num_cities = read_file (optarg, &coord);
+      if (num_cities == -1)
+      {
+	      fprintf (stderr, "%s: error: incompatible data file\n", argv[0]);
+	      exit (EXIT_FAILURE);
+      }
+      else
+      if (num_cities == -2)
+      {
+	      fprintf (stderr, "%s: error: no such file or directory\n", argv[0]);
+	      exit (EXIT_FAILURE);
+      }
       break;
     case 'h':
       help ();

@@ -9,6 +9,15 @@
 #include <regex.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+
+/** @brief Verify if a line contains a xy coordinate.
+ *
+ *  @param line Line to be validated
+ *  @return Bool
+ */
+int is_coordinate(char *line);
+
 
 /** @brief Verify if a string is a valid integer.
  *

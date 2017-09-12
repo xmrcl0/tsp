@@ -8,6 +8,29 @@
 #include "utils.h"
 
 int
+is_coordinate (char *line)
+{
+  int r;
+  regex_t regex;
+  const char *pattern = "^[0-9]+\\.?([0-9]+)?[ \t]+[0-9]+\\.?([0-9]+)?[ \t]+?\n";
+
+  r = regcomp (&regex, pattern, REG_EXTENDED);
+  if (r)
+  {
+    fprintf (stderr, "Could not compile regex\n");
+    return -1;
+  }
+
+  r = regexec (&regex, line, 0, NULL, 0);
+  if (!r)
+  {
+    return 1;
+  }
+  return 0;
+}
+
+
+int
 is_integer (char *number)
 {
   int r;
@@ -18,7 +41,7 @@ is_integer (char *number)
   if (r)
   {
     fprintf (stderr, "Could not compile regex\n");
-    exit (1);
+    return -1;
   }
 
   r = regexec (&regex, number, 0, NULL, 0);
@@ -41,7 +64,7 @@ is_positive_number (char *number)
   if (r)
   {
     fprintf (stderr, "Could not compile regex\n");
-    exit (1);
+    return -1;
   }
 
   r = regexec (&regex, number, 0, NULL, 0);
@@ -92,4 +115,3 @@ randperm (int n, int perm[])
     perm[i] = t;
   }
 }
-

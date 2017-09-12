@@ -5,6 +5,8 @@
  *  @bug No known bugs.
  */
 
+#define _GNU_SOURCE
+
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
