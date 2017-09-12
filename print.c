@@ -1,8 +1,7 @@
-/** @file print.c
- *  @brief Print functions.
- *
- *  @author Marcelo Pinto (xmrcl0@gmail.com)
- *  @bug No known bugs.
+/** @file     print.c
+ *  @brief    Print functions.
+ *  @author   Marcelo Pinto (xmrcl0@gmail.com)
+ *  @date     09/12/2017
  */
 
 #include "print.h"

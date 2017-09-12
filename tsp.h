@@ -1,8 +1,7 @@
-/** @file tsp.h
- *  @brief Function prototypes for tsp.
- *
- *  @author Marcelo Pinto (xmrcl0@gmail.com)
- *  @bug No known bugs.
+/** @file     tsp.h
+ *  @brief    Function prototypes for tsp.
+ *  @author   Marcelo Pinto (xmrcl0@gmail.com)
+ *  @date     09/12/2017
  */
 
 #define _GNU_SOURCE
@@ -13,7 +12,6 @@
 #include <math.h>
 #include <float.h>
 #include <stddef.h>
-#include <errno.h>
 #include <unistd.h>
 
 /** @brief Print command help.
@@ -26,37 +24,41 @@ void help (void);
 
 /** @brief Create euclidian distance matrix
  *
- * @param coord Coordinates matrix
- * @param distance Distance matrix
- * @param num_city Number of cities 
- * @return Void
+ *  @param[in]  c Coordinates matrix
+ *  @param[out] d Distance matrix
+ *  @param[in]  n Number of cities 
+ *  @return void
  */
-void distance_matrix (float ***coord, float ***distance, int num_city);
+void distance_matrix (float ***c, float ***d, int n);
 
 
 /** @brief Create a hamiltonian cycle aka "path"
  *
- * @param num_city Number of cities 
- * @param path Path array
- * @return Void
+ *  @param[in]  n Number of cities 
+ *  @param[out] p Path array
+ *  @return void
  */
-void create_path (int num_city, int **path);
+void create_path (int n, int **p);
 
 
 /** @brief Measure the path length
  *
- * @param distance Distance matrix
- * @param num_city Number of cities 
- * @param path Path array
- * @return Float 
+ *  @param[in] d Distance matrix
+ *  @param[in] n Number of cities 
+ *  @param[in] p Path array
+ *  @return Path length 
  */
-float measure_path (float ***distance, int num_city, int **path);
+float measure_path (float ***d, int n, int **p);
 
 
 /** Read cities coordinate file
  *
- * @param file Cities file
- * @param array Coordinates array 
- * @return Int
+ *  @param[in]  f Cities coordinate file
+ *  @param[out] v Coordinates matrix 
+ *  @return Number of cities
+ *
+ *  @retval  n Number of cities
+ *  @retval  0 File not found 
+ *  @retval -1 Invalid file 
  */
-int read_file (char *file, float ***array);
+int read_file (char *f, float ***m);

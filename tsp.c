@@ -1,11 +1,8 @@
-/** @file tsp.c
- *  @brief Traveling Salesman Problem.
- *
- *  @author Marcelo Pinto
- *  @email mpinto@usp.br
- *  @version 0.2
- *  @date 09/12/2017
- *  @bug No known bugs
+/** @file     tsp.c
+ *  @brief    Traveling Salesman Problem.
+ *  @author   Marcelo Pinto (xmrcl0@gmail.com)
+ *  @date     09/12/2017
+ *  @version  0.2
  */
 
 #include "tsp.h"
@@ -80,7 +77,7 @@ read_file (char *file, float ***array)
 
   fp = fopen (file, "r");
   if (fp == NULL)
-    return -2;
+    return 0;
 
   while ((getline(&line, &len, fp) != -1))
   { 
@@ -155,15 +152,15 @@ main (int argc, char **argv)
     case 'f':
       fflag = 1;
       num_cities = read_file (optarg, &coord);
-      if (num_cities == -1)
+      if (num_cities == 0)
       {
-	      fprintf (stderr, "%s: error: incompatible data file\n", argv[0]);
+	      fprintf (stderr, "%s: error: no such file or directory\n", argv[0]);
 	      exit (EXIT_FAILURE);
       }
       else
-      if (num_cities == -2)
+      if (num_cities == -1)
       {
-	      fprintf (stderr, "%s: error: no such file or directory\n", argv[0]);
+	      fprintf (stderr, "%s: error: incompatible data file\n", argv[0]);
 	      exit (EXIT_FAILURE);
       }
       break;

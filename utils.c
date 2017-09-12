@@ -1,8 +1,7 @@
-/** @file utils.c
- *  @brief Utils functions.
- *
- *  @author Marcelo Pinto (xmrcl0@gmail.com)
- *  @bug No known bugs.
+/** @file     utils.c
+ *  @brief    Utils functions.
+ *  @author   Marcelo Pinto (xmrcl0@gmail.com)
+ *  @date     09/12/2017
  */
 
 #include "utils.h"

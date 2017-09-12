@@ -1,54 +1,64 @@
-/** @file utils.h
- *  @brief Function prototypes for utils.
- *
- *  @author Marcelo Pinto (xmrcl0@gmail.com)
- *  @bug No known bugs.
+/** @file     utils.h
+ *  @brief    Function prototypes for utils.
+ *  @author   Marcelo Pinto (xmrcl0@gmail.com)
+ *  @date     09/12/2017
  */
 
 #include <stddef.h>
 #include <regex.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
 
-/** @brief Verify if a line contains a xy coordinate.
+/** @brief Verify if a line contains a valid xy coordinate.
  *
- *  @param line Line to be validated
- *  @return Bool
+ *  @param [in] l  Line to be validated
+ *  @return Validation status 
+ *
+ *  @retval  0 Success
+ *  @retval  1 Failure
+ *  @retval -1 Internal error
  */
-int is_coordinate(char *line);
+int is_coordinate(char *l);
 
 
 /** @brief Verify if a string is a valid integer.
  *
- *  @param number Number to be validated
- *  @return Bool
+ *  @param[in] n  Number to be validated
+ *  @return Validation status 
+ *
+ *  @retval  0 Success
+ *  @retval  1 Failure
+ *  @retval -1 Internal error
  */
-int is_integer(char *number);
+int is_integer(char *n);
 
 
 /** @brief Verify if a string is a valid number.
  *
- *  @param number Number to be validated
- *  @return Bool 
+ *  @param[in] number Number to be validated
+ *  @return Validation status 
+ *
+ *  @retval  0 Success
+ *  @retval  1 Failure
+ *  @retval -1 Internal error
  */
-int is_positive_number(char *number);
+int is_positive_number(char *n);
 
 
 /** @brief Copy an array.
  *
- * @param src Source array
- * @param dst Destination array
- * @param n Array size 
- * @return Void
+ * @param[in]  src Source array
+ * @param[out] dst Destination array
+ * @param[in]  n   Number of bytes to copy
+ * @return void
  */
 void array_copy(int **src, int **dst, size_t n);
 
 
 /** @brief Calculates n!.
  *
- * @param n Number
- * @return long double Factorial of n
+ *  @param[in] n Number
+ *  @return The factorial of n
  */
 long double factorial(int n);
 
@@ -59,8 +69,8 @@ long double factorial(int n);
  * Permission is granted to modify and re-distribute this code in any manner
  * as long as this notice is preserved.  All standard disclaimers apply.
  *       
- *  @param n Array size
- *  @param perm Array of n elements 
- *  @return Void 
+ *  @param[in]  n Vector size
+ *  @param[out] p Vector of n elements 
+ *  @return void 
  */
-void randperm(int n, int perm[]);
+void randperm(int n, int p[]);

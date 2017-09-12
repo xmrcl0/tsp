@@ -1,8 +1,7 @@
-/** @file print.h
- *  @brief Function prototypes for print.
- *
- *  @author Marcelo Pinto (xmrcl0@gmail.com)
- *  @bug No known bugs.
+/** @file     print.h
+ *  @brief    Function prototypes for print.
+ *  @author   Marcelo Pinto (xmrcl0@gmail.com)
+ *  @date     09/12/2017
  */
 
 #include <stdio.h>
@@ -10,40 +9,40 @@
 
 /** @brief Print report.
  *
- *  @param distance Distance matrix 
- *  @param distance Path array 
- *  @param num_city Number of cities 
- *  @param len      Path's length
- *  @param mode     Print mode
- *  @return Void 
+ *  @param[in] d  Distance matrix 
+ *  @param[in] p  Path array 
+ *  @param[in] n  Number of cities 
+ *  @param[in] l  Path's length
+ *  @param[in] pm Print mode
+ *  @return void 
  */
-void print_path(float ***distance, int **path, size_t num_city, float len, int mode);
+void print_path(float ***d, int **p, size_t n, float l, int pm);
 
 /** @brief Print distance matrix.
  *
- *  @param distance Distance matrix 
- *  @param num_city Number of cities
- *  @return Void 
+ *  @param[in] d Distance matrix 
+ *  @param[in] n Number of cities
+ *  @return void 
  */
-void print_dist(float ***distance, size_t num_city);
+void print_dist(float ***d, size_t n);
 
 /** @brief Print coordinates matrix.
  *
- *  @param coord    Coordinate matrix 
- *  @param num_city Matrix size 
- *  @return Void 
+ *  @param[in] c Coordinate matrix 
+ *  @param[in] n Matrix size 
+ *  @return void 
  */
-void print_cord(float ***coord, size_t num_city);
+void print_cord(float ***c, size_t n);
 
 /** @brief Print report.
  *
- *  @param coord    Coordinate matrix
- *  @param distance Distance matrix
- *  @param min_path Minimal path array
- *  @param num_city Number of cities
- *  @param min_len  Minimal length 
- *  @param inter    Number of simulations
- *  @param mode     Print mode
- *  @return Void 
+ *  @param[in] c  Coordinate matrix
+ *  @param[in] d  Distance matrix
+ *  @param[in] m  Minimal path array
+ *  @param[in] n  Number of cities
+ *  @param[in] ml Minimal length 
+ *  @param[in] i  Number of simulations
+ *  @param[in] pm Print mode
+ *  @return void 
  */
-void print_repo(float **coord, float **distance, int *min_path, int num_city, float min_len, long double inter, int mode);
+void print_repo(float **c, float **d, int *m, int n, float ml, long double i, int pm);
