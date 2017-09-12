@@ -22,7 +22,7 @@ void print_path(float ***distance, int **path, size_t num_city, float len, int m
 /** @brief Print distance matrix.
  *
  *  @param distance Distance matrix 
- *  @param num_city Matrix size 
+ *  @param num_city Number of cities
  *  @return Void 
  */
 void print_dist(float ***distance, size_t num_city);
@@ -40,7 +40,7 @@ void print_cord(float ***coord, size_t num_city);
  *  @param coord    Coordinate matrix
  *  @param distance Distance matrix
  *  @param min_path Minimal path array
- *  @param num_city Matrix size
+ *  @param num_city Number of cities
  *  @param min_len  Minimal length 
  *  @param inter    Number of simulations
  *  @param mode     Print mode
