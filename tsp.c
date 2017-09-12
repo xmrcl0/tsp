@@ -4,7 +4,7 @@
  *  @author Marcelo Pinto
  *  @email mpinto@usp.br
  *  @version 0.2
- *  @date 09/11/2017
+ *  @date 09/12/2017
  *  @bug No known bugs
  */
 
@@ -22,7 +22,7 @@ help (void)
   printf ("Options:\n");
   printf ("  -n <ITER>    Number of paths to simulate\n");
   printf ("  -m <MODE>    Exibition mode 0 1 or 2\n");
-  printf ("  -f <FILE>    Cities coorinates file\n");
+  printf ("  -f <FILE>    Cities coordinates file\n");
   printf ("  -h           Show this help message and exit\n\n");
   printf ("Example:\n");
   printf ("  tsp -n 5 -m 0 -f data/grid04_xy.txt   # Simulates 5 paths for 4 cities data file\n");
@@ -30,43 +30,43 @@ help (void)
 
 
 void
-distance_matrix (float ***v, float ***d, int n)
+distance_matrix (float ***coord, float ***distance, int num_city)
 {
   int i, j, nrows, ncols;
 
-  ncols = n;
-  nrows = n;
+  ncols = num_city;
+  nrows = num_city;
 
-  *d = (float **) malloc (nrows * sizeof (float *));
+  *distance = (float **) malloc (nrows * sizeof (float *));
   for (i = 0; i < nrows; i++)
-    (*d)[i] = (float *) malloc (ncols * sizeof (float));
+    (*distance)[i] = (float *) malloc (ncols * sizeof (float));
 
-  for (i = 0; i < n; i++)
-    for (j = 0; j < n; j++)
-      (*d)[i][j] = sqrt (pow ((*v)[i][0] - (*v)[j][0], 2) + pow ((*v)[i][1] - (*v)[j][1], 2));
+  for (i = 0; i < num_city; i++)
+    for (j = 0; j < num_city; j++)
+      (*distance)[i][j] = sqrt (pow ((*coord)[i][0] - (*coord)[j][0], 2) + pow ((*coord)[i][1] - (*coord)[j][1], 2));
 }
 
 
 void
-create_path (int n, int **v)
+create_path (int num_city, int **coord)
 {
   int i;
 
-  (*v) = (int *) malloc ((n + 1) * sizeof (int));
+  (*coord) = (int *) malloc ((num_city + 1) * sizeof (int));
 
-  randperm (n, *v);
-  (*v)[n] = (*v)[0];
+  randperm (num_city, *coord);
+  (*coord)[num_city] = (*coord)[0];
 }
 
 
 float
-measure_path (float ***d, int n, int **p)
+measure_path (float ***distance, int num_city, int **path)
 {
   int i;
   float l = 0;
 
-  for (i = 0; i < n; i++)
-    l = l + (*d)[(*p)[i]][(*p)[i + 1]];
+  for (i = 0; i < num_city; i++)
+    l = l + (*distance)[(*path)[i]][(*path)[i + 1]];
   return l;
 }
 
