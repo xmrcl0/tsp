@@ -204,7 +204,7 @@ main (int argc, char **argv)
 
   // Simulates n round trips
   if (!mode == 0)
-    printf ("Possible Paths:\n");
+    printf ("POSSIBLE PATHS:\n");
   for (i = 0; i < num_iter; i++)
   {
     create_path (num_cities, &path);
@@ -219,7 +219,8 @@ main (int argc, char **argv)
     }
     free (path);
   }
-  printf ("\n");
+  if (!mode == 0)
+    printf ("\n");
 
   // Print report 
   print_repo (coord, distance, min_path, num_cities, min_len, num_iter, mode);
