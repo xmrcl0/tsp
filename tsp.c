@@ -16,7 +16,7 @@ help (void)
   printf ("Find best path to Traveling Salesman Problem using Monte Carlo Method\n\n");
   printf ("Options:\n");
   printf ("  -n <ITER>    Number of paths to simulate\n");
-  printf ("  -m <MODE>    Exibition mode 0 1 or 2\n");
+  printf ("  -m <MODE>    Exibition mode 0, 1 or 2 (silent = 0)\n");
   printf ("  -f <FILE>    Cities coordinates file\n");
   printf ("  -h           Show this help message and exit\n\n");
   printf ("Example:\n");
@@ -203,12 +203,14 @@ main (int argc, char **argv)
   distance_matrix (&coord, &distance, num_cities);
 
   // Simulates n round trips
-  printf ("Possible Paths:\n");
+  if (!mode == 0)
+    printf ("Possible Paths:\n");
   for (i = 0; i < num_iter; i++)
   {
     create_path (num_cities, &path);
     len = measure_path (&distance, num_cities, &path);
-    print_path (&distance, &path, num_cities, len, mode);
+    if (!mode == 0)
+      print_path (&distance, &path, num_cities, len, mode);
 
     if (len < min_len)
     {
@@ -217,6 +219,7 @@ main (int argc, char **argv)
     }
     free (path);
   }
+  printf ("\n");
 
   // Print report 
   print_repo (coord, distance, min_path, num_cities, min_len, num_iter, mode);
