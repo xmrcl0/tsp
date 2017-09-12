@@ -12,19 +12,11 @@ print_path (float ***distance, int **path, size_t num_city, float len, int mode)
 {
   int i;
 
-
-  if (mode == 0)
+  if (mode == 1)
   {
     for (i = 0; i < num_city; i++)
       printf ("d[%d][%d]=%.2f, ", (*path)[i], (*path)[i + 1], (*distance)[(*path)[i]][(*path)[i + 1]]);
     printf ("distance=%.2f\n", len);
-  }
-
-  else if (mode == 1)
-  {
-    for (i = 0; i <= num_city; i++)
-      printf ("%d,", (*path)[i]);
-    printf ("%.2f\n", len);
   }
 
   else if (mode == 2)
@@ -37,10 +29,10 @@ print_path (float ***distance, int **path, size_t num_city, float len, int mode)
   // Report specific option
   else if (mode == 3)
   {
-    printf ("\nsequence:");
+    printf ("  minimal path     =");
     for (i = 0; i <= num_city; i++)
       printf ("%3d", (*path)[i]);
-    printf ("\ndistance: %.2f\n", len);
+    printf ("\n  minimal distance = %.2f\n", len);
   }
 }
 
@@ -50,7 +42,7 @@ print_dist (float ***distance, size_t num_city)
 {
   int i, j;
 
-  printf ("Distance matrix:\n");
+  printf ("DISTANCE MATRIX:\n");
   for (i = 0; i < num_city; i++)
   {
     for (j = 0; j < num_city; j++)
@@ -66,11 +58,11 @@ print_cord (float ***coord, size_t num_city)
 {
   int i, j;
 
-  printf ("\nCities coordinates:\n");
+  printf ("COORDINATES:\n");
   for (i = 0; i < num_city; i++)
   {
     for (j = 0; j < 2; j++)
-      printf ("%.4f ", (*coord)[i][j]);
+      printf ("  %.4f ", (*coord)[i][j]);
     printf ("\n");
   }
   printf ("\n");
@@ -80,20 +72,18 @@ print_cord (float ***coord, size_t num_city)
 void
 print_repo (float **coord, float **distance, int *min_path, int num_city, float min_len, long double inter, int mode)
 {
-  // Print number of paths
-  printf ("\n\n\nResults:\n");
-  printf ("\nnumber of cities = %d\n", num_city);
-  printf ("possible paths   = %.0Lf\n", factorial (num_city - 1) / 2);
-  printf ("simulated paths  = %.0Lf\n", inter);
-
   // Print cities coordinates
   print_cord (&coord, num_city);
 
   // Print distance matrix
   print_dist (&distance, num_city);
 
+  // Print results
+  printf ("RESULTS:\n");
+  printf ("  number of cities = %d\n", num_city);
+  printf ("  possible paths   = %.0Lf\n", factorial (num_city - 1) / 2);
+  printf ("  simulated paths  = %.0Lf\n", inter);
+
   // Print minimal path found
-  printf ("Minimal path found:\n");
   print_path (&distance, &min_path, num_city, min_len, 3);
-  printf ("\n");
 }
