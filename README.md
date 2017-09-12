@@ -38,5 +38,12 @@ Exemplos
 Efetua cinco simulações para o TSP para um arquivo com quatro cidades:
 
 ```
-    $ tsp -n 5 -m 2 -f data/grid04_xy.txt
+    $ tsp -n 5 -m 0 -f data/grid04_xy.txt
+```
+
+
+Efetua mil simulações para o TSP para um arquivo com quinze cidades:
+
+```
+    $ tsp -n 1000 -m 2 -f data/grid15_xy.txt
 ```
