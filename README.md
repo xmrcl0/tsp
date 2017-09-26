@@ -17,7 +17,7 @@ Compilação
 Efetuar a compilação do código-fonte:
 
 ```
-    $ gcc tsp.c print.c utils.c -o tsp -lm
+    $ make 
 ```
 
 ----
