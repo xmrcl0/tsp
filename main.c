@@ -8,16 +8,18 @@
 #include "tsp.h"
 #include "print.h"
 #include "utils.h"
+#include "graphviz.h"
 
 void
 help (void)
 {
-  printf ("usage: tsp [-h] [-n <ITER>] -m <MODE> -f <FILE>\n");
+  printf ("usage: tsp [-h] [-n <ITER>] -m <MODE> -f <FILE> -g\n");
   printf ("Find best path to Traveling Salesman Problem using Monte Carlo Method\n\n");
   printf ("Options:\n");
   printf ("  -n <ITER>    Number of paths to simulate\n");
   printf ("  -m <MODE>    Exibition mode 0, 1 or 2 (silent = 0)\n");
   printf ("  -f <FILE>    Cities coordinates file\n");
+  printf ("  -g           Generate city coordinates + shortest path graph in graphviz's dot format\n");
   printf ("  -h           Show this help message and exit\n\n");
   printf ("Example:\n");
   printf ("  tsp -n 5 -m 0 -f data/grid04_xy.txt   # Simulates 5 paths for 4 cities data file\n");
@@ -25,18 +27,18 @@ help (void)
 
 
 int
-parse_cmdline(int argc, char **argv, long double *num_iter, int *num_cities, float ***coord, int *mode)
+parse_cmdline(int argc, char **argv, long double *num_iter, int *num_cities, float ***coord, int *mode, int *gendot)
 {
   char c;
   long double i;
-  int nflag = 0, mflag = 0, fflag = 0;
+  int nflag = 0, mflag = 0, fflag = 0, gflag = 0;
   float len = 0, min_len = FLT_MAX;
   FILE *file;
 
 
   // Read and parse command line arguments
   opterr = 0;
-  while ((c = getopt (argc, argv, "n:m:f:h::")) != -1)
+  while ((c = getopt (argc, argv, "n:m:f:g:h::")) != -1)
     switch (c)
     {
     case 'n':
@@ -83,6 +85,10 @@ parse_cmdline(int argc, char **argv, long double *num_iter, int *num_cities, flo
         exit (EXIT_FAILURE);
       }
       break;
+    case 'g':
+      gflag = 1;
+      *gendot = 1;
+      break;
     case 'h':
       help ();
       exit (EXIT_SUCCESS);
@@ -121,13 +127,13 @@ int
 main (int argc, char **argv)
 {
   long double i, num_iter;
-  int num_cities, mode;
+  int num_cities, mode, gendot = 0;
   float **coord, **distance;
   int *path, *min_path;
   float len = 0, min_len = FLT_MAX;
 
   // Parse command line
-  parse_cmdline(argc, argv, &num_iter, &num_cities, &coord, &mode);
+  parse_cmdline(argc, argv, &num_iter, &num_cities, &coord, &mode, &gendot);
  
   // Create a new seed
   srand (time (NULL));
@@ -167,6 +173,9 @@ main (int argc, char **argv)
 
   // Print report 
   print_repo (coord, distance, min_path, num_cities, min_len, num_iter, mode);
+
+  // Generate dot file
+  gen_graphviz (coord, min_path, num_cities);
 
   free (min_path);
   free (coord);
