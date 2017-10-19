@@ -38,7 +38,7 @@ parse_cmdline(int argc, char **argv, long double *num_iter, int *num_cities, flo
 
   // Read and parse command line arguments
   opterr = 0;
-  while ((c = getopt (argc, argv, "n:m:f:g:h::")) != -1)
+  while ((c = getopt (argc, argv, "n:m:f:gh::")) != -1)
     switch (c)
     {
     case 'n':
@@ -175,7 +175,9 @@ main (int argc, char **argv)
   print_repo (coord, distance, min_path, num_cities, min_len, num_iter, mode);
 
   // Generate dot file
-  gen_graphviz (coord, min_path, num_cities);
+  if(gendot) {
+      gen_graphviz (coord, min_path, num_cities);
+  }
 
   free (min_path);
   free (coord);
