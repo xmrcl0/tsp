@@ -1,3 +1,9 @@
+/** @file     graphviz.c
+ *  @brief    Graphviz's dot format output.
+ *  @author   Brian K. (AlpacaRotorvator@users.noreply.github.com)
+ *  @date     10/18/2017
+ */
+
 #include "graphviz.h"
 #include <stdio.h>
 
