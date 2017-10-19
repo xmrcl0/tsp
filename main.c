@@ -13,7 +13,7 @@
 void
 help (void)
 {
-  printf ("usage: tsp [-h] [-n <ITER>] -m <MODE> -f <FILE> -g\n");
+  printf ("usage: tsp [-h] [-g] [-n <ITER>] -m <MODE> -f <FILE>\n");
   printf ("Find best path to Traveling Salesman Problem using Monte Carlo Method\n\n");
   printf ("Options:\n");
   printf ("  -n <ITER>    Number of paths to simulate\n");
@@ -97,7 +97,7 @@ parse_cmdline(int argc, char **argv, long double *num_iter, int *num_cities, flo
       fprintf (stderr, "%s: error: invalid option\n", argv[0]);
       return 1;
     default:
-      fprintf (stderr, "usage: tsp [-h] [-n <ITER>] -m <MODE> -f <FILE>\n");
+      fprintf (stderr, "usage: tsp [-h] [-g] [-n <ITER>] -m <MODE> -f <FILE>\n");
       abort ();
     }
 
